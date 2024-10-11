@@ -17,6 +17,6 @@ export const comments = [
         id: 3,
         userId: 2,
         rating: "3",
-        content: "Ehh...I mean it's alright, so-so ...",
+        opinion: "Ehh...I mean it's alright, so-so ...",
     },
 ];

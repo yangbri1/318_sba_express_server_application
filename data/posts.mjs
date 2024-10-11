@@ -4,13 +4,13 @@ export const posts = [
     {
         id: 1,
         userId: 1,
-        title: "This song is a hit!",
+        title: "It's a hit!",
         content: "Moved me to tears ...",
     },
     {
         id: 2,
         userId: 1,
-        title: "Bad vocals",
+        title: "Hate watching",
         content: "Compared to their last single, I expected more ...",
     },
     {
