@@ -1,11 +1,11 @@
 // import express web server framework
 import express from 'express';
-// import other modules from other .mjs files for later use
+// import other router modules from .mjs files into this web application
 import commentRoutes from './routes/commentRoutes.mjs';
 import postRoutes from './routes/postRoutes.mjs';
 import userRoutes from './routes/userRoutes.mjs';
 // import built-in JS body-parser from Node.js
-import bodyParse from 'body-parser';
+import bodyParser from 'body-parser';
 
 
 // initialize an instance of express
@@ -14,45 +14,42 @@ const app = express();
 let PORT = 3000;
 
 /* middleware -- error handling should be last */  
+// when we get a post/put request from front-end, this will be able to pull & parse it apart into usable data
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json({ extended: true }));
+
 
 
 /* routes */
+// load router modules into the app
+app.use('/api/comments', commentRoutes);
+app.use('/api/posts', postRoutes);
+app.use('/api/users', userRoutes);
+
 
 
 // accessing the homepage via HTTP GET request method route
 // app.get() route handles GET request from root/homepage 
-app.get('/', (req, res) => {
-    // sends out response message to webpage
-    res.send('Welcome welcome!👋');
-});
+// app.get('/', (req, res) => {
+//     // sends out response message to webpage
+//     res.send('Welcome welcome!👋');
+// });
 
-app.get('/albums', (req, res) => {
-    res.send('Album covers');
-});
+// app.get('/albums', (req, res) => {
+//     res.send('Album covers');
+// });
 
-app.get('/artists', (req, res) => {
-    res.send('Artists corner');
-});
+// app.get('/artists', (req, res) => {
+//     res.send('Artists corner');
+// });
 
-// GET request to any other page (catch all) ...
-app.get('*', (req, res) => {
-    // indicate nothing there to see
-    res.send('<h1>404</h1> <h2>Error</h2> \nUh-oh something went wrong');
-});
+// // GET request to any other page (catch all) ...
+// app.get('*', (req, res) => {
+//     // show a custom status 404 w/ respective message
+//     res.status(404).send('<h1>404</h1> <h2>Error</h2> \nUh-oh something went wrong');
+// });
 
-app.route('/api/artists')
-    .get((req, res) => {
-        res.send("Retrieve artist");
-    })
-    .post((req, res) => {
-        res.send("Create artist");
-    })
-    .put((req, res) => {
-        res.send(("Update artist"));
-    })
-    .delete((req, res) => {
-        res.send(("Delete artist"));
-    });
+
 
 /* app.listen() should always be the very last thing in the server -
    despite dealing w/ asynchronous JS but sequencing still matter */
