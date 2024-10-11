@@ -3,9 +3,14 @@ import express from 'express'
 
 // initialize an instance of express
 const app = express();
-// declare a port for application to start listening
+// declare a port for application to start listening (Port 3000 is standard)
 let PORT = 3000;
 
+// accessing the homepage via HTTP GET request
+app.get('/', (req, res) => {
+    // sends out message to webpage
+    res.send('Welcome welcome!👋');
+});
 
 // Express listen method for where the server will be listening to 
 app.listen(PORT,() => {
