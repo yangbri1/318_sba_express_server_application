@@ -23,7 +23,7 @@ router.get('/', (req, res) => {
     ];
     // besides res.send() which sends a String text 
     /* res.json() converts given parameters into JSON string format & send to client */ 
-    /* Aside: .json() normally used when dealing w/ data in API creation */
+    /* Aside: .json() normally used when dealing w/ data in API creation  (ref. lecture) */
     res.json({comments, links});
 });
 
@@ -34,7 +34,25 @@ router.get('/', (req, res) => {
 // @desc:   Creates a comment
 // @access: Public
 router.post('/', (req, res, next) => {
-    /* Aside: Express' req.body property */
+    
+    /* Aside: Express' req.body property provides access to parsed request body from bodyParser in server.mjs*/
+    // checks the parsed data for userId, rating, opinion (properties in comments.mjs)
+    if(req.body.userId && req.body.rating && req.body.opinion){
+        
+        // if given user data proves to be sufficient ...
+        // create a new comment object with parsed out JSON data & attach new id number to it
+        let comment = {
+            id: comments[comments.length - 1].id + 1,
+            userId: req.body.userId,
+            rating: req.body.rating,
+            opinion: req.body.opinion,
+        };
+
+        // since comments are an array of objects, we can use Array.push() method to append new comment to end
+        comments.push(comment);
+        // converts newly created comment object into JSON string format -- for uniformity
+        res.json(comments[comments.length - 1]);
+    };
 });
 
 
