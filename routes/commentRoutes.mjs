@@ -52,7 +52,13 @@ router.post('/', (req, res, next) => {
         comments.push(comment);
         // converts newly created comment object into JSON string format -- for uniformity
         res.json(comments[comments.length - 1]);
-    };
+    }
+
+    // if the supplied data is inadequate ...
+    else{
+        // show status custom status "500" with custom error message
+        next(error(400, "Need your userId, rating, and opinion"));
+    }
 });
 
 
