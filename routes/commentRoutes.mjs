@@ -2,8 +2,11 @@ import express from 'express';
 import { comments } from '../data/comments.mjs';
 
 // use express.Router() class to create modular & mountable route handlers
-// Aside: replace "app" prefix to "router" 
+// Aside: replace "app" prefix (in server.mjs) to "router" (here) 
 let router = express.Router();
+
+/* Notice: Every Express routes follow a similar structure: 
+    instance.method(path URL on server, handler function exe on route) */
 
 // @route:  GET api/comments
 // @desc:   Reads all comments
@@ -18,11 +21,20 @@ router.get('/', (req, res) => {
             type: 'GET',
         },
     ];
-
     // besides res.send() which sends a String text 
-    /* res.json() converts given parameters into JSON string format (use in API creation)  & send to client */ 
+    /* res.json() converts given parameters into JSON string format & send to client */ 
+    /* Aside: .json() normally used when dealing w/ data in API creation */
     res.json({comments, links});
+});
 
+/* Note:  Handler arrow callback function takes in next() object as a parameter because
+    here it is a middleware function */
+
+// @route   POST api/comments
+// @desc:   Creates a comment
+// @access: Public
+router.post('/', (req, res, next) => {
+    /* Aside: Express' req.body property */
 });
 
 
@@ -41,7 +53,17 @@ router.get('/', (req, res) => {
 //         res.send(("Delete artist"));
 //     });
 
+router.put('/', (req, res) => {
+    res.send('comment put route');
+});
 
+router.delete('/', (req, res) => {
+    res.send('comment delete route');
+});
+
+router.get('/', (req, res) => {
+    res.send('comment get route');
+});
 
 
 export default router;
