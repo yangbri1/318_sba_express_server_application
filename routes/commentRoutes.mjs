@@ -120,7 +120,7 @@ router.patch('/:id', (req, res, next) => {
     const comment = comments.find((elem, index) => {
         // if value of :id in req.params is detected on the database ...
         if(elem.id == req.params.id){
-            // loops through the keys in req.body (data in comments.mjs) for specific :id
+            // loops through the keys in req.body (data retrieved from body-parsing middleware) for specific :id
             for(let key in req.body){
                 // change the comment
                 comments[index][key] = req.body[key];
@@ -161,6 +161,36 @@ router.delete('/:id', (req, res, next) => {
     // otherwise move to next middleware function or move to next route
     else{ next(); }
 });  
+
+// @route:  GET api/comments/user/:userId
+// @desc:   Gather up all of the user's comments
+// @access: Public
+router.get('/user/:userId', (req, res, next) => {
+    // declare an empty array for later use
+    const empty_array = [];
+    // iterate through the array of comments
+    let itr = 0;
+    while(itr < comments.length){
+        // if the userId in the database matches up with the requested userId
+        if(comments[itr].userId == req.params.userId){
+            // append their comment to the the empty_array
+            empty_array.push(comments[itr]);
+        }
+        // increment by 1 to continue cycling through
+        itr++;
+    }
+    // if the array is populated ...
+    if(empty_array.length != 0){
+        // essentially console out JSON string to browser of the empty
+        res.json(empty_array);
+    }
+    // if the array remained empty ...
+    else{
+        // res.send("No posts from this user");
+        /* "Like a 'finally' ... it always run" (ref. Mykee) */
+        next(res.send("No comments from this user"));
+    }
+});
 
 
 // export out the router into server.mjs for further use

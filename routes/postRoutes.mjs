@@ -162,6 +162,33 @@ router.delete('/:id', (req, res, next) => {
     else{ next(); }
 });  
 
-
+// @route:  GET api/posts/user/:userId
+// @desc:   Gather up all of the user's posts
+// @access: Public
+router.get('/user/:userId', (req, res, next) => {
+    // declare an empty array for later use
+    const empty_array = [];
+    // iterate through the array of posts
+    let itr = 0;
+    while(itr < posts.length){
+        // if the userId in the database matches up with the requested userId
+        if(posts[itr].userId == req.params.userId){
+            // append their comment to the the empty_array
+            empty_array.push(posts[itr]);
+        }
+        // increment by 1 to continue cycling through
+        itr++;
+    }
+    // if the array is populated ...
+    if(empty_array.length != 0){
+        // essentially console out JSON string to browser of the empty
+        res.json(empty_array);
+    }
+    // if the array remained empty ...
+    else{
+        /* "Like a 'finally' ... it always run" (ref. Mykee) */
+        next(res.send("No posts from this user"));
+    }
+});
 // export out the router into server.mjs for further use
 export default router;
