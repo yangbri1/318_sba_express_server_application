@@ -52,10 +52,10 @@ app.get('/api', (req, res) => {
 // });
 
 // GET request to any other page (catch all) ...
-app.get('*', (req, res) => {
-    // show a custom status 404 w/ respective message
-    res.status(404).send('<h1>404</h1> <h2>Error</h2> \nUh-oh something went wrong');
-});
+// app.get('*', (req, res) => {
+//     // show a custom status 404 w/ respective message
+//     res.status(404).send('<h1>404</h1> <h2>Error</h2> \nUh-oh something went wrong');
+// });
 
 
 
