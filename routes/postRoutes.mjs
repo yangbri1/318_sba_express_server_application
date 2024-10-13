@@ -51,7 +51,8 @@ router.post('/', (req, res, next) => {
         };
         // since posts are an array of objects, we can use Array.push() method to append new post to end
         posts.push(post);
-        // converts newly created post object into JSON string format -- for uniformity
+        // converts newly created post object into JSON string format 
+        // output JSON string to browser
         res.json(posts[posts.length - 1]);
     }
 

@@ -2,6 +2,8 @@
 import express from 'express';
 // importing relevant JavaScript module and array destructuring it for later use
 import { comments } from '../data/comments.mjs';
+// importing helper functions below
+import user_info from '../utilities/user_info.mjs';
 
 // use express.Router() class to create modular & mountable route handlers
 // Aside: replace "app" prefix (in server.mjs) to "router" (here) 
@@ -167,17 +169,20 @@ router.delete('/:id', (req, res, next) => {
 router.get('/user/:userId', (req, res, next) => {
     // declare an empty array for later use
     const empty_array = [];
+    let route_params = req.params;
+    // let userId = comments[itr].itr
     // iterate through the array of comments
     let itr = 0;
     while(itr < comments.length){
         // if the userId in the database matches up with the requested userId
-        if(comments[itr].userId == req.params.userId){
+        if(comments[itr].userId == route_params.userId){
             // append their comment to the the empty_array
             empty_array.push(comments[itr]);
         }
         // increment by 1 to continue cycling through
         itr++;
     }
+    // user_info(route_params, comments, userId, id);
     // if the array is populated ...
     if(empty_array.length != 0){
         // essentially console out JSON string to browser of the empty
