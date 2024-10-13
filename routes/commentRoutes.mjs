@@ -58,13 +58,14 @@ router.post('/', (req, res, next) => {
     // if the supplied data is inadequate ...
     else{
         // show status custom status "500" with custom error message
-        next(error(500, "Need your userId, rating, and opinion"));
+        // next(error(500, "Need your userId, rating, and opinion"));
+        next();
     }
 });
 
 /* GET route takes in route parameter :id (inserted dynamic data) from path URL, caches and manipulate it */
-// @route: GET api/comments/:id
-// @desc   Retrieve a comment
+// @route:  GET api/comments/:id
+// @desc:   Retrieve a comment
 // @access: Public
 router.get('/', (req, res, next) => {
 
@@ -86,7 +87,7 @@ router.get('/', (req, res, next) => {
             method: `DELETE`,
         }
     ];
-    console.log("get patch, delete");
+    // console.log("get patch, delete");
     /* Aside: Array Destructuring not needed here for "elem" in anonymous function since 
     "comments" array was already destructured once during import? */
     
@@ -102,40 +103,49 @@ router.get('/', (req, res, next) => {
         // res.json() function sends JSON string response to browser
         res.json({ comments, options });
     }
-
     // otherwise if the comment object is empty ...
     else{
         // goes to next middleware function (if there's any) or pass control to next route
         // next('route');
         next();
     }
-});
-// route handlers chainable example
-// app.route('/api/artists')
-//     .get((req, res) => {
-//         res.send("Retrieve artist");
-//     })
-//     .post((req, res) => {
-//         res.send("Create artist");
-//     })
-//     .put((req, res) => {
-//         res.send(("Update artist"));
-//     })
-//     .delete((req, res) => {
-//         res.send(("Delete artist"));
-//     });
 
-router.put('/', (req, res) => {
-    res.send('comment put route');
 });
 
-router.delete('/', (req, res) => {
-    res.send('comment delete route');
-});
+// @route:  PATCH api/comments/:id
+// @desc:   Updates a comment
+// @access: Public
+router.patch('/:id', (req, res, next) => {
+    // look through the comments array ...
+    const comment = comments.find((elem, index) => {
+        // if value of :id in req.params is detected on the database ...
+        if(elem.id == req.params.id){
+            // iterate via the keys in req.body "comment" [array of objs] for that specific id
+            // (req.body).forEach((key) => {   // .forEach() would only work for an array ... what if req.body() is NOT an array?
+            //     // edit the comment 
+            //     comments[index][key] = req.body[key];
+            // });
+            // loops through the keys in req.body (data in comments.mjs) for specific :id
+            for(let key in req.body){
+                // change the comment
+                comments[index][key] = req.body[key];
+            }
+            // adjust status code to okay
+            return true;
+        }
+    });
+    /* this is the same to if(Object.keys(comment) ...) but much more succinct */
+    // practice D.R.Y. -- sends out JSON string to browser
+    if(comment){
+        res.json(comment);
+    }
+    // otherwise move to next middleware function or move to next route
+    else{
+        next();
+    }
+});    
 
-router.get('/', (req, res) => {
-    res.send('comment get route');
-});
+
 
 
 export default router;
