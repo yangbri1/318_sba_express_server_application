@@ -10,6 +10,59 @@ let router = express.Router();
 /* Notice: Every Express routes follow a similar structure: 
     instance.method(path URL on server, handler function exe on route) */
 
+// @route:  GET api/posts
+// @desc:   Reads all posts
+// @access: Public
+router.get('/', (req, res) => {
+
+    // imitates accessing the database 
+    const options = [
+        {
+            // cache dynamic "id" request by user
+            href: 'posts/:id',
+            rel: ':id',
+            method: 'GET',
+        },
+    ];
+    // besides res.send() which sends a String text 
+    /* res.json() converts given parameters into JSON string format & send to client */ 
+    /* Aside: .json() normally used when dealing w/ data in API creation  (ref. lecture) */
+    res.json({ posts, options });
+});
+
+/* Note:  Handler arrow callback function takes in next() object as a parameter because
+    here it is a middleware function */
+
+// @route   POST api/posts
+// @desc:   Creates a post
+// @access: Public
+router.post('/', (req, res, next) => {
+    
+    /* Aside: Express' req.body property provides access to parsed request body from bodyParser in server.mjs*/
+    // checks the parsed data for userId, title, content (properties in posts.mjs)
+    if(req.body.userId && req.body.title && req.body.content){
+        // if given user data proves to be sufficient ...
+        // create a new post object with parsed out JSON data & attach new id number to it
+        const post = {
+            id: posts[posts.length - 1].id + 1,
+            userId: req.body.userId,
+            title: req.body.title,
+            content: req.body.content,
+        };
+        // since posts are an array of objects, we can use Array.push() method to append new post to end
+        posts.push(post);
+        // converts newly created post object into JSON string format -- for uniformity
+        res.json(posts[posts.length - 1]);
+    }
+
+    // if the supplied data is inadequate ...
+    else{
+        // show status custom status "500" with custom error message
+        // next(error(500, "Need your userId, rating, and opinion"));
+        next();
+    }
+});
+
 /* GET route takes in route parameter :id (inserted dynamic data) from path URL, caches and manipulate it */
 // @route:  GET api/posts/:id
 // @desc:   Retrieve a post
@@ -39,10 +92,10 @@ router.get('/:id', (req, res, next) => {
     "posts" array was already destructured once during import? */
     
     // employ JS array method .find() to search container for 1st instance of mentioned property
-    let post = posts.find((elem) =>
-        // if the :id were to be found in the database, initialize obj to variable comment
+    let post = posts.find((elem) => 
+        // if the :id were to be found in the database, initialize obj to variable post
         elem.id == req.params.id); // loose comparison so data type do NOT have to match in URL (1 vs "1" in JS)
-    
+    /* Question: Unsure why {} for above arrow function would interfere with status code */
 
     // use Object.keys() method to return an array of object's properties in conjunction ...
     // if the array is not empty => post object was not empty ...
@@ -66,7 +119,7 @@ router.patch('/:id', (req, res, next) => {
     const post = posts.find((elem, index) => {
         // if value of :id in req.params is detected on the database ...
         if(elem.id == req.params.id){
-            // loops through the keys in req.body (data in posts.mjs) for specific :id
+            // loops through the keys in req.body (data retrieved from body-parsing middleware) for specific :id
             for(let key in req.body){
                 // change the post
                 posts[index][key] = req.body[key];
@@ -132,9 +185,11 @@ router.get('/user/:userId', (req, res, next) => {
     }
     // if the array remained empty ...
     else{
+        // res.send("No posts from this user");
         /* "Like a 'finally' ... it always run" (ref. Mykee) */
         next(res.send("No posts from this user"));
     }
 });
+
 // export out the router into server.mjs for further use
 export default router;

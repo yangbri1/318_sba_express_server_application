@@ -191,7 +191,5 @@ router.get('/user/:userId', (req, res, next) => {
     }
 });
 
-
-
 // export out the router into server.mjs for further use
 export default router;
