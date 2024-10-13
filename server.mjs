@@ -6,6 +6,8 @@ import postRoutes from './routes/postRoutes.mjs';
 import userRoutes from './routes/userRoutes.mjs';
 // import built-in JS body-parser middleware from Node.js
 import bodyParser from 'body-parser';
+// import morgan 3rd party middleware ("express.logger" built-in fn DN work)
+import morgan from 'morgan';
 
 
 // initialize an instance of express
@@ -22,7 +24,19 @@ app.use(bodyParser.urlencoded({ extended: true })); // express.urlencoded()?
 // implement built-in express.json() middleware function to parse JSON HTTP request bodies into JS objects (usable data)
 app.use(bodyParser.json({ extended: true }));
 
+/* built on top of Node.js (like Express), Morgan API console.log() out HTTP requests onto terminal in the selected 
+"tiny" format: : 1) HTTP Request Method, 2) Path URL, 3) Response's Content Length, 4) Response Time */
+// Aside: Some people also use Winston alongside Morgan to logs into a file  -- placed before any custom error handlers
+app.use(morgan('tiny'));
 
+
+// error handling middleware using industry standard anonymous arrow function
+/* Note: error handling middleware has 4 params that ALL needs to be filled w/ something */
+app.use((err, req, res, next) => {
+    console.log(err.stack);
+    // here we create a customer error code 600 w/ message if it hits
+    res.status(600).send(`Something's amiss ... `);
+});
 
 /* routes */
 // load router modules into the app

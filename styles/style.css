@@ -1,0 +1,36 @@
+body{
+    background-color: #b4ab28;
+    text-align: center;
+}
+
+h1{
+    font-family: fantasy;
+    font-size: 3rem;
+    padding-top: 5%;
+    color:#050201;
+}
+
+h2{
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 2rem;
+    color:#00eeff;
+}
+
+p{
+    /* display:flex; */
+    color:#3217cc;
+}
+
+img{
+    border-radius: 50%;
+    
+}
+
+div{
+    filter:blur(5px);
+}
+
+div:hover{
+    filter:blur();
+
+}

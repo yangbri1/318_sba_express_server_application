@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>#title#</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+
+  <body>
+    <div id="app_container">
+      <h1>#title#</h1>
+      <h2>#description#</h2>
+      <p>#summary#</p>
+
+      <img src='#img#' />
+      <a href=#link#></a>
+    </div>
+  </body>
+</html>

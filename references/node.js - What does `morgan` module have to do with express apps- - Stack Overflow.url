@@ -1,0 +1,2 @@
+[InternetShortcut]
+URL=https://stackoverflow.com/questions/25468786/what-does-morgan-module-have-to-do-with-express-apps#:~:text=For%20example%3A%20var%20express%20%3D%20require%28%27express%27%29%20var%20morgan,in%20the%20%22combined%22%20pre-defined%20format%20app.use%28morgan%28%27combined%27%29%29%20%2F%2FThat%27s%20it.
