@@ -67,7 +67,7 @@ router.post('/', (req, res, next) => {
 // @route:  GET api/comments/:id
 // @desc:   Retrieve a comment
 // @access: Public
-router.get('/', (req, res, next) => {
+router.get('/:id', (req, res, next) => {
 
     // accessing the database, declare variable "options" to be const since there will NOT be any redeclaration in this scope
     const options = [
@@ -92,16 +92,16 @@ router.get('/', (req, res, next) => {
     "comments" array was already destructured once during import? */
     
     // employ JS array method .find() to search container for 1st instance of mentioned property
-    let comment = comments.find(function(elem){
+    let comment = comments.find((elem) => 
         // if the :id were to be found in the database, initialize obj to variable comment
-        if(elem.id == req.params.id); // loose comparison so data type do NOT have to match in URL (1 vs "1" in JS)
-    });
+        elem.id == req.params.id); // loose comparison so data type do NOT have to match in URL (1 vs "1" in JS)
+    /* Question: Unsure why {} for above arrow function would interfere with status code */
 
     // use Object.keys() method to return an array of object's properties in conjunction ...
     // if the array is not empty => comment object was not empty ...
-    if(Object.keys(comment).length !== 0){
+    if(Object.keys(comments).length > 0){
         // res.json() function sends JSON string response to browser
-        res.json({ comments, options });
+        res.json({ comment, options });
     }
     // otherwise if the comment object is empty ...
     else{
@@ -109,7 +109,6 @@ router.get('/', (req, res, next) => {
         // next('route');
         next();
     }
-
 });
 
 // @route:  PATCH api/comments/:id
@@ -191,6 +190,7 @@ router.get('/user/:userId', (req, res, next) => {
         next(res.send("No comments from this user"));
     }
 });
+
 
 
 // export out the router into server.mjs for further use

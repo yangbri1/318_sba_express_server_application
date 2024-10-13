@@ -10,64 +10,11 @@ let router = express.Router();
 /* Notice: Every Express routes follow a similar structure: 
     instance.method(path URL on server, handler function exe on route) */
 
-// @route:  GET api/posts
-// @desc:   Reads all posts
-// @access: Public
-router.get('/', (req, res) => {
-
-    // imitates accessing the database 
-    const options = [
-        {
-            // cache dynamic "id" request by user
-            href: 'posts/:id',
-            rel: ':id',
-            method: 'GET',
-        },
-    ];
-    // besides res.send() which sends a String text 
-    /* res.json() converts given parameters into JSON string format & send to client */ 
-    /* Aside: .json() normally used when dealing w/ data in API creation  (ref. lecture) */
-    res.json({ posts, options });
-});
-
-/* Note:  Handler arrow callback function takes in next() object as a parameter because
-    here it is a middleware function */
-
-// @route   POST api/posts
-// @desc:   Creates a post
-// @access: Public
-router.post('/', (req, res, next) => {
-    
-    /* Aside: Express' req.body property provides access to parsed request body from bodyParser in server.mjs*/
-    // checks the parsed data for userId, rating, opinion (properties in posts.mjs)
-    if(req.body.userId && req.body.rating && req.body.opinion){
-        // if given user data proves to be sufficient ...
-        // create a new post object with parsed out JSON data & attach new id number to it
-        const post = {
-            id: posts[posts.length - 1].id + 1,
-            userId: req.body.userId,
-            rating: req.body.rating,
-            opinion: req.body.opinion,
-        };
-        // since posts are an array of objects, we can use Array.push() method to append new post to end
-        posts.push(post);
-        // converts newly created post object into JSON string format -- for uniformity
-        res.json(posts[posts.length - 1]);
-    }
-
-    // if the supplied data is inadequate ...
-    else{
-        // show status custom status "500" with custom error message
-        // next(error(500, "Need your userId, rating, and opinion"));
-        next();
-    }
-});
-
 /* GET route takes in route parameter :id (inserted dynamic data) from path URL, caches and manipulate it */
 // @route:  GET api/posts/:id
 // @desc:   Retrieve a post
 // @access: Public
-router.get('/', (req, res, next) => {
+router.get('/:id', (req, res, next) => {
 
     // accessing the database, declare variable "options" to be const since there will NOT be any redeclaration in this scope
     const options = [
@@ -92,16 +39,16 @@ router.get('/', (req, res, next) => {
     "posts" array was already destructured once during import? */
     
     // employ JS array method .find() to search container for 1st instance of mentioned property
-    let post = posts.find(function(elem){
-        // if the :id were to be found in the database, initialize obj to variable post
-        if(elem.id == req.params.id); // loose comparison so data type do NOT have to match in URL (1 vs "1" in JS)
-    });
+    let post = posts.find((elem) =>
+        // if the :id were to be found in the database, initialize obj to variable comment
+        elem.id == req.params.id); // loose comparison so data type do NOT have to match in URL (1 vs "1" in JS)
+    
 
     // use Object.keys() method to return an array of object's properties in conjunction ...
     // if the array is not empty => post object was not empty ...
-    if(Object.keys(post).length !== 0){
+    if(Object.keys(posts).length > 0){
         // res.json() function sends JSON string response to browser
-        res.json({ posts, options });
+        res.json({ post, options });
     }
     // otherwise if the post object is empty ...
     else{
@@ -109,7 +56,6 @@ router.get('/', (req, res, next) => {
         // next('route');
         next();
     }
-
 });
 
 // @route:  PATCH api/posts/:id
@@ -173,7 +119,7 @@ router.get('/user/:userId', (req, res, next) => {
     while(itr < posts.length){
         // if the userId in the database matches up with the requested userId
         if(posts[itr].userId == req.params.userId){
-            // append their comment to the the empty_array
+            // append their post to the the empty_array
             empty_array.push(posts[itr]);
         }
         // increment by 1 to continue cycling through
