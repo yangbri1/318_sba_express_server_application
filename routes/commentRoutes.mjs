@@ -120,11 +120,6 @@ router.patch('/:id', (req, res, next) => {
     const comment = comments.find((elem, index) => {
         // if value of :id in req.params is detected on the database ...
         if(elem.id == req.params.id){
-            // iterate via the keys in req.body "comment" [array of objs] for that specific id
-            // (req.body).forEach((key) => {   // .forEach() would only work for an array ... what if req.body() is NOT an array?
-            //     // edit the comment 
-            //     comments[index][key] = req.body[key];
-            // });
             // loops through the keys in req.body (data in comments.mjs) for specific :id
             for(let key in req.body){
                 // change the comment
@@ -134,18 +129,38 @@ router.patch('/:id', (req, res, next) => {
             return true;
         }
     });
-    /* this is the same to if(Object.keys(comment) ...) but much more succinct */
-    // practice D.R.Y. -- sends out JSON string to browser
+    /* practice D.R.Y. : this is the same to if(Object.keys(comment) ...) but much more succinct */
+    // if "comment" exists
     if(comment){
+        // sends out JSON string to browser
         res.json(comment);
     }
-    // otherwise move to next middleware function or move to next route
+    // otherwise 
     else{
+        // move to next middleware function or move to next route
         next();
     }
 });    
 
+// @route:  DELETE api/comments/:id
+// @desc:   Remove a comment
+// @access: Public
+router.delete('/:id', (req, res, next) => {
+    // utilize array.find() method to find 1st instance of ...
+    const comment = comments.find((elem, index) => {
+        // if :id in request params matches an id on the database ...
+        if(elem.id == req.params.id){
+            // removes the comment object from any index the array
+            comments.splice(index, 1);  //.pop() would only from end, .shift() only from start
+            // adjust status code to okay
+            return true;
+        }
+    });
+    // even D.R.Y.er?!! -- sends out JSON string to browser
+    if(comment){ res.json(comment); }
+    // otherwise move to next middleware function or move to next route
+    else{ next(); }
+});  
 
-
-
+// export out the router into server.mjs for further use
 export default router;
