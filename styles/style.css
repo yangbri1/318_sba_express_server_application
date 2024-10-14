@@ -44,6 +44,10 @@ div:hover{
     filter:blur();
 }
 
+/* a{
+    display: flex;
+} */
+
 /* from MDN provides animation to above selected tag */
 @keyframes bigsmall {
     25%,

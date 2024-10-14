@@ -42,11 +42,12 @@ app.engine('who', (filePath, options, callback) => {
         const rendered = content
             .toString()
             .replace('#status#', `${options.status}`)
-            .replaceAll('#title#', `${options.name}`)
+            .replace('#link#', `${options.link}`)
+            .replaceAll('#name#', `${options.name}`)
             .replace('#alias#', `${options.alias}`)
-            .replace('#summary#', `${options.summary}`)
+            .replace('#about#', `${options.about}`)
             .replace('#img#', `${options.img}`)
-            .replace('#gif#', `${options.gif}`)
+            
 
         return callback(null, rendered);
 
@@ -82,9 +83,9 @@ app.use(custom_error);
 
 /* routes */
 // load router modules into the app
-app.use('/api/comments', commentRoutes);
-app.use('/api/posts', postRoutes);
-app.use('/api/users', userRoutes);
+app.use('/api/comment(s)?', commentRoutes);
+app.use('/api/post(s)?', postRoutes);
+app.use('/api/user(s)?', userRoutes);
 
 // accessing the homepage via HTTP GET request method route
 // app.get() route handles GET request from root/homepage 
@@ -95,18 +96,42 @@ app.get('/', (req, res) => {
     // specify the options in template engine
     let options = {
         status: 'Homepage',
+        link: 'http://localhost:3000/documentation',
         name: '\tVinsmoke Sanji',
         alias: `"Black Leg" Sanji`,
-        summary: 'Cook of the Straw Hat Pirates, Dreams of All Blue, Bounty of 1,032,000,000 beri (Alive Only)',
+        about: 'Cook of the Straw Hat Pirates, Dreams of All Blue, Bounty of 1,032,000,000 beri (Alive Only)',
         img: 'https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/51158316-fd7e-48ca-b5fe-8542e9dfe357/dbcd4yw-8902f6f7-d3a9-4f65-a807-c1cd556eec6d.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzUxMTU4MzE2LWZkN2UtNDhjYS1iNWZlLTg1NDJlOWRmZTM1N1wvZGJjZDR5dy04OTAyZjZmNy1kM2E5LTRmNjUtYTgwNy1jMWNkNTU2ZWVjNmQucG5nIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.GuK9c9C7h8Wvnfacz0xoOMl4InaqnSH_1ilwB8tyysk',
-        gif: '',
+    
     };
-
     /* IMPORTANT: call res.render() in EACH of app's routes so view could be rendered */
     res.render('template', options);
     
 });
 
+// GET request for attempting to navigate to any descendent paths of /documentation ...
+app.get('/documentation', (req, res, next) => {
+    console.log("\n--- Redirect to documentation ---")
+    // res.redirect('/documentation');
+    // next();
+    // res.send(`<h1>Valid endpoints</h1><ol><li>1</li><li>2</li><li>3</li></ol>`);
+    
+    // specify the options in template engine
+    let options = {
+        status: 'Documentation',
+        link: 'http://127.0.0.1:5500/endpoints/endpoints.html',
+        name: 'Valid Endpoints',
+        alias: `<u>http://${req.hostname}:${PORT}/api/</u>...`,
+        about: `<strong><u>/comments</u></strong>  OR  <strong><u>/posts</u></strong>  OR  <strong><u> /users </u></strong>`,
+        img: 'https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/51158316-fd7e-48ca-b5fe-8542e9dfe357/dbcd4yw-8902f6f7-d3a9-4f65-a807-c1cd556eec6d.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzUxMTU4MzE2LWZkN2UtNDhjYS1iNWZlLTg1NDJlOWRmZTM1N1wvZGJjZDR5dy04OTAyZjZmNy1kM2E5LTRmNjUtYTgwNy1jMWNkNTU2ZWVjNmQucG5nIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.GuK9c9C7h8Wvnfacz0xoOMl4InaqnSH_1ilwB8tyysk',
+    
+    };
+    // link: './endpoints/endpoints.html',
+    /* IMPORTANT: call res.render() in EACH of app's routes so view could be rendered */
+    res.render('template', options);
+
+});
+
+// GET method route -- request to /api page ...
 app.get('/api', (req, res) => {
     // sends out response message to webpage
     // res.send('Almost there ...');
@@ -114,33 +139,42 @@ app.get('/api', (req, res) => {
     // specify the options in template engine
     let options = {
         status: 'Almost there ...',
+        link: 'http://127.0.0.1:3000/documentation',
         name: '\nTony Tony Chopper',
         alias: `"Cotton Candy Lover" Chopper`,
-        summary: 'Doctor of the Straw Hat Pirates, Dreams of curing all diseases, Unofficial pet of the Straw Hats, Bounty of 50 beri',
+        about: 'Doctor of the Straw Hat Pirates, Dreams of curing all diseases, Unofficial pet of the Straw Hats, Bounty of 50 beri',
         img: 'https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/7d562d2f-b1cf-430b-a066-7813d0891d36/ddfnvxu-b82fe601-6114-4828-bd53-edcf68d4ff68.jpg/v1/fill/w_894,h_894,q_70,strp/tony_tony_chopper_from_one_piece_by_inkartluis_ddfnvxu-pre.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9OTYwIiwicGF0aCI6IlwvZlwvN2Q1NjJkMmYtYjFjZi00MzBiLWEwNjYtNzgxM2QwODkxZDM2XC9kZGZudnh1LWI4MmZlNjAxLTYxMTQtNDgyOC1iZDUzLWVkY2Y2OGQ0ZmY2OC5qcGciLCJ3aWR0aCI6Ijw9OTYwIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmltYWdlLm9wZXJhdGlvbnMiXX0.08mecxArLeY-yQ2VBf4EwHxhguhvwfSJ8dEXKl6pRII',
-        gif: ''
+        
     };
-
     /* IMPORTANT: call res.render() in EACH of app's routes so view could be rendered */
     res.render('template', options);
 });
 
 // GET request to any other page (catch all) ...
 app.get('*', (req, res) => {
-    // show a custom status 404 w/ respective message
-    // res.status(404).send('<h1>404</h1> <h2>Error</h2> \nUh-oh something went wrong');
+    // sends out response message to webpage
+    // res.send('Almost there ...');
+
     // specify the options in template engine
     let options = {
-        status: 'Uh-oh something went wrong',
+        status: `Uh-oh something went wrong ... PATH:${req.path} doesn't exist. Please refer to the Documentation`,
+        link: 'http://localhost:3000/documentation',
         name: '\nCaptain Ussop',
         alias: `"神" Usopp, Sogeking`,
-        summary: `Sniper of the Straw Hat Pirates, Dreams of courage, Has the "I can't-go-on-this-island-or-I'll-die-disease", Bounty of 500,000,000 beri`,
-        // img: 'https://tenor.com/view/usopp-coffee-coffe-usopp-tea-usopp-tea-gif-21574255'
+        about: `Sniper of the Straw Hat Pirates, Dreams of courage, Has the "I can't-go-on-this-island-or-I'll-die-disease", Bounty of 500,000,000 beri`,
         img: 'https://th.bing.com/th/id/OIP.UaG2ADMUJJctq-_kPSf5sgHaEX?rs=1&pid=ImgDetMain',
-        gif: ''
-        // gif: 'https://tenor.com/view/usopp-one-piece-chopper-tony-tony-chopper-tony-chopper-gif-20968172'
+        
     };
+    /* Note: anchor tags to other existing http://localhost:3000 endpoints during runtime works */
+    // can't seem to place notes within "options" -- interferes w/ page load -- below doesn't work
+    // img: 'https://tenor.com/view/usopp-coffee-coffe-usopp-tea-usopp-tea-gif-21574255',
+    // gif: 'https://th.bing.com/th/id/OIP.UaG2ADMUJJctq-_kPSf5sgHaEX?rs=1&pid=ImgDetMain'
+    // <img src='#gif#' alt="a gif" title="gif doesn't work ..." /> -- supposed to be in template.who within anchor tag but DN work
+    
+    /* IMPORTANT: call res.render() in EACH of app's routes so view could be rendered */
+    res.render('template', options);
 });
+
 
 
 /* app.listen() should always be the very last thing in the server -

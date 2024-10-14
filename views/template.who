@@ -7,20 +7,21 @@
   </head>
 
   <body>
-    <h3 alt="h3 tag -- status"><em>#status#</em></h3>
-    <div id="app_container">
-      <h1 alt="h1 tag -- title">#title#</h1>
-      <h2 alt="h2 tag -- alias">#alias#</h2>
-      <p alt="paragraph tag -- summary">#summary#</p>
-
-      <img src='#img#' alt="an image" />
-
-      <img src='#gif#' alt="a gif" />
-
-      <a href=#link#>
-        <img src='#gif#' alt="a gif" />
+    <h3 alt="h3 tag -- status" title="Indicates where you're at"><em>#status#</em></h3>
+    <a href=#link# alt="Valid Endpoints" title="Link to Documentation">
+       Link to Documentation
       </a>
       
+    <div id="app_container">
+      <h1 alt="h1 tag -- name" title="Name of character">#name#</h1>
+      <h2 alt="h2 tag -- alias" title="Some alias the character goes by">#alias#</h2>
+      <p alt="paragraph tag -- about" title="Brief description about them">#about#</p>
+
+      <img src='#img#' alt="an image" title="One Piece character" />
+
+
+      
+
     </div>
   </body>
 </html>
