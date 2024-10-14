@@ -5,9 +5,9 @@ export function custom_error(err, req, res, next){
     console.error(err); // this will also print out error stack to terminal
     // here we create a customer error code 600 w/ message if it hits
     // res.status(600).send(`Something's amiss ... `);  // print out text to browser
-    console.log(req.params);
-    res.status(600).json({error: "Data not found"});    // print out a JSON string to browser
-    
+    // console.log(req.params);
+    // res.status(600).json({error: "Data not found"});    // print out a JSON string to browser
+    res.status(600);
     // if(req.path == '/user/ ...'){
     //     res.status(600).json({error: "User not found"}); 
     // }

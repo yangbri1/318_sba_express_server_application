@@ -199,6 +199,8 @@ router.get('/user/:userId', (req, res, next) => {
          --- text with will be console.log() to terminal 
          --- DN interfere w/ custom_error middleware function being called back in server.mjs yielding 
             1) a JSON string out to browser, 2) custom status in Thunder-Client/Postman */
+        
+        res.json({error: "Comments not found"})
         next("No COMMENTS from this user");
     }
 });
