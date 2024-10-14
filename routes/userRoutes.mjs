@@ -186,7 +186,7 @@ router.get('/user/:id', (req, res, next) => {
     while(it < comments.length){
         // if the userId in the database matches up with the requested :id
         if(comments[it].userId == req.params.id){
-            // include user's comments to the empty_array
+            // include user's comments to the the empty_array
             empty_array.push(comments[it]);
         }
         // increment by 1 to continue cycling through
@@ -212,7 +212,8 @@ router.get('/user/:id', (req, res, next) => {
     else{
         // res.send("No posts from this user");
         /* "Like a 'finally' ... it always run" (ref. Mykee) */
-        next(res.send("No users from this user"));
+        // next(res.send("No users from this user"));
+        next("No USER info (comments, posts, user) found")
     }
 });
 

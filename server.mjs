@@ -78,9 +78,6 @@ app.use(morgan('tiny'));
 // custom middleware logging info & when HTTP request was made
 app.use(custom_logger);
 
-// error handling middleware using industry standard anonymous arrow function
-app.use(custom_error);
-
 /* routes */
 // load router modules into the app
 app.use('/api/comment(s)?', commentRoutes);
@@ -175,6 +172,18 @@ app.get('*', (req, res) => {
     /* IMPORTANT: call res.render() in EACH of app's routes so view could be rendered */
     res.render('template', options);
 });
+
+
+/* Note: this one is a custom middleware that acts like an error-handler (does NOT have 4 params) 
+    this middlware will run if the custom_error middleware below was absent ... */
+// app.use((req, res) => {
+//     // res.status(404);
+//     res.status(404).json({error: "Resource Not Found"});
+// });
+
+// error handling middleware using industry standard anonymous arrow function
+/* Note: this is an actual error-handling middleware (has 4 params) */
+app.use(custom_error);
 
 
 

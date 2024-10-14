@@ -48,6 +48,16 @@ div:hover{
     display: flex;
 } */
 
+/* styling for div container w/ class of "doc" (endpoints.html) */
+div.doc{
+    /* display:flex;
+    justify-content: center; */
+    /* align-content: center; */
+    filter:blur();
+    text-align: left;
+    padding-left:30%;
+}
+
 /* from MDN provides animation to above selected tag */
 @keyframes bigsmall {
     25%,

@@ -189,8 +189,17 @@ router.get('/user/:userId', (req, res, next) => {
     // if the array remained empty ...
     else{
         // res.send("No posts from this user");
-        /* "Like a 'finally' ... it always run" (ref. Mykee) */
-        next(res.send("No comments from this user"));
+        /* "Like a 'finally' ... next() always run" (ref. Mykee) */
+        // next(res.send("No comments from this user")); 
+        /* above res.send() will override & print out text to browser */
+        
+        // res.status(700).json({error: "Resource Not Found" });
+        // next();
+        /* below's next() is required to continue otherwise "processing" forever on Thunder-Client testing
+         --- text with will be console.log() to terminal 
+         --- DN interfere w/ custom_error middleware function being called back in server.mjs yielding 
+            1) a JSON string out to browser, 2) custom status in Thunder-Client/Postman */
+        next("No COMMENTS from this user");
     }
 });
 

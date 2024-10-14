@@ -188,7 +188,8 @@ router.get('/user/:userId', (req, res, next) => {
     else{
         // res.send("No posts from this user");
         /* "Like a 'finally' ... it always run" (ref. Mykee) */
-        next(res.send("No posts from this user"));
+        // next(res.send("No posts from this user"));
+        next("No POSTS from this user");
     }
 });
 
