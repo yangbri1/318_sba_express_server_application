@@ -2,8 +2,6 @@
 import express from 'express';
 // importing relevant JavaScript module and array destructuring it for later use
 import { comments } from '../data/comments.mjs';
-// importing helper functions below
-import user_info from '../utilities/user_info.mjs';
 
 // use express.Router() class to create modular & mountable route handlers
 // Aside: replace "app" prefix (in server.mjs) to "router" (here) 
