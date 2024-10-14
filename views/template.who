@@ -7,13 +7,20 @@
   </head>
 
   <body>
+    <h3 alt="h3 tag -- status"><em>#status#</em></h3>
     <div id="app_container">
-      <h1>#title#</h1>
-      <h2>#description#</h2>
-      <p>#summary#</p>
+      <h1 alt="h1 tag -- title">#title#</h1>
+      <h2 alt="h2 tag -- alias">#alias#</h2>
+      <p alt="paragraph tag -- summary">#summary#</p>
 
-      <img src='#img#' />
-      <a href=#link#></a>
+      <img src='#img#' alt="an image" />
+
+      <img src='#gif#' alt="a gif" />
+
+      <a href=#link#>
+        <img src='#gif#' alt="a gif" />
+      </a>
+      
     </div>
   </body>
 </html>
