@@ -193,14 +193,13 @@ router.get('/user/:userId', (req, res, next) => {
         // next(res.send("No comments from this user")); 
         /* above res.send() will override & print out text to browser */
         
-        // res.status(700).json({error: "Resource Not Found" });
         // next();
         /* below's next() is required to continue otherwise "processing" forever on Thunder-Client testing
          --- text with will be console.log() to terminal 
          --- DN interfere w/ custom_error middleware function being called back in server.mjs yielding 
             1) a JSON string out to browser, 2) custom status in Thunder-Client/Postman */
         
-        res.json({error: "Comments not found"})
+        // res.status(700).json({error: "Comments not found"});
         next("No COMMENTS from this user");
     }
 });
