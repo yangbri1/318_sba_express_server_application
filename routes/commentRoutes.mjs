@@ -164,7 +164,7 @@ router.delete('/:id', (req, res, next) => {
 // @route:  GET api/comments/user/:userId
 // @desc:   Gather up all of the user's comments
 // @access: Public
-router.get('/user/:userId', (req, res, next) => {
+router.get('/user(s)?/:userId', (req, res, next) => {
     // declare an empty array for later use
     const empty_array = [];
     let route_params = req.params;

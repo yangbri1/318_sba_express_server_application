@@ -114,12 +114,12 @@ app.get('/documentation', (req, res, next) => {
     
     // specify the options in template engine
     let options = {
-        status: 'Documentation',
+        status: 'Full documentation in link below',
         link: 'http://127.0.0.1:5500/endpoints/endpoints.html',
         name: 'Valid Endpoints',
         alias: `<u>http://${req.hostname}:${PORT}/api/</u>...`,
         about: `<strong><u>/comments</u></strong>  OR  <strong><u>/posts</u></strong>  OR  <strong><u> /users </u></strong>`,
-        img: 'https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/51158316-fd7e-48ca-b5fe-8542e9dfe357/dbcd4yw-8902f6f7-d3a9-4f65-a807-c1cd556eec6d.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzUxMTU4MzE2LWZkN2UtNDhjYS1iNWZlLTg1NDJlOWRmZTM1N1wvZGJjZDR5dy04OTAyZjZmNy1kM2E5LTRmNjUtYTgwNy1jMWNkNTU2ZWVjNmQucG5nIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.GuK9c9C7h8Wvnfacz0xoOMl4InaqnSH_1ilwB8tyysk',
+        img: 'https://th.bing.com/th/id/OIP.yS-SJtE_OTFOlqAjr2ZtrwHaGu?rs=1&pid=ImgDetMain',
     
     };
     /* using below link resulted in opening the endpoints.html on default port 5500, behavior may be different on other devices */
