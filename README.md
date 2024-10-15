@@ -30,8 +30,9 @@
 #### structure: router.method(path URL, *callback* handler function)
 #### methods: POST (router.post), GET (router.get), PATCH (router.patch), DELETE (router.delete), express.router()
 
-## Form validation for URL pathname
-### Regular functions (Regex): () *capture*, ? *optional*, * *catch all* 
+### Form validation for URL pathname
+#### Regular functions (Regex): () *capture*, ? *optional*, * *catch all* 
+#### Used with route paths so "comment" or "comments" plural could both work when inputted
 
 ### Express route parameters:
 #### req.params { userId:"1", id: "1" }
@@ -118,6 +119,9 @@
 ### CSS animations
 #### https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_animations/Using_CSS_animations
 
+### Markdown language guide
+#### https://www.markdownguide.org/basic-syntax/
+
 ### Lecture Notes
 #### https://www.canva.com/design/DAFris1zDAc/view
 #### https://www.canva.com/design/DAFripTTxwU/view
@@ -131,24 +135,150 @@
 
 ### Enclosed Files
 > <em> server.mjs </em>
->> Holds the brains of the server, showcase outline of necessary imports, port to listen, template engine, middleware functions, routes, error-handling middleware, app.listen() function.
-<li> </li>
+- Holds the brains of the server, showcase outline of necessary imports, port to listen, template engine, middleware functions, routes, error-handling middleware, app.listen() function. 
+</br/>
 
 > <em> package.json </em>
 >
 > <em> package-lock.json </em>
-<li> Created via <strong> npm init -y </strong> and its purpose is to manage required dependencies, scripts, and other information for this project to be operational. </li>
+- Created via <strong> npm init -y </strong> and its purpose is to manage required dependencies, scripts, and other information for this project to be operational.
+</br>
 
 > *.gitignore*
-<li> Contains the single line <strong> node_modules/ </strong> (case-senstive) to withhold the node_modules file during git push to Github. </li>
+- Contains the single line <strong> node_modules/ </strong> (case-senstive) to withhold the node_modules file during git push to Github.
+</br>
 
 > *node_modules*
-<li> Why exclude this file? It may be big & it holds extraneous data that others may not want to see. </li>
+- Why exclude this node_modules file? It may be big & it holds extraneous data that others may not want to see.
+</br>
 
-> *styles* 
+> data
+>> *comments.mjs*
+>>
+>> *posts.mjs*
+>>
+>> *users.mjs*
+- Carry the three data categories created by myself, inspired by examples from lecture, as inquired.
+</br>
+
+> routes
+>> *commentRoutes.mjs*
+>>
+>> *postRoutes.mjs*
+>>
+>> *userRoutes.mjs*
+- Comprises of Router() files that uses their respective data files (sometimes addtional files) to perform HTTP requests (POST, GET, PATCH, DELETE, etc.) separately. Why? Practice separation of concerns, later import them into the server.mjs.
+</br>
+
+> utilities-middleware
+>> *custom_error.mjs*
+>>
+>> *custom_logger.mjs*
+>>
+>> custom_req_logger.mjs*
+- Middleware handler functions to be used either in "routes" or in "server.mjs", here we mainly call them into "server.mjs" via **app.use()**.
+</br>
+
+> views
+>> *template.who*
+- Template engine to be used in server.mjs, serves as outline for each of the web app produced on the browser when running.
+</br>
+
+> styles
 >> *styles.css*
-<li> CSS provides styling to the endpoints.html and later crucial in serving static files in an Express application for the template.who template engine </li>
+<ul>
+<li> CSS provides styling to the endpoints.html and later crucial in serving static files in an Express application for the template.who template engine. </li>
+</ul>
+</br>
 
+> *images*
+- Consists of all the images used in the template engine.
+</br>
+
+> *references*
+- Holds reference materials ncessary for completion of this project.
+</br>
+
+> endpoints
+>> *endpoints.html*
+>> *endpoints.txt*
+- Felt like my original template might not provide enough information regardng the endpoints of the this Express server application. Wasn't sure if I could have two templates for one server.mjs. Therefore, I created a side html file showing a deeper dive (more endpoints) for the this server app. However when I first redirected to it via an anchor tag/link, it opened on PORT 5500 not on PORT 3000 like server.mjs. 
+- **<u>Side Note</u>: Might have to "Open with Live Server" the *"endpoints.html"* before redirecting to it via link from http://localhost:3000 for it to operational.**
+- Aside: "endpoints.txt" there just in case.
+</br>
 
 ### Directions
-> With the assumption that "npm start" is already active, navigating to http://localhost:3000/ w
+#### With the assumption that "npm start" is already active, navigate to **http://localhost:3000/**. Upon establishing successful connection, there would be an CSS animation that pops out the title status page showing the user where they are currently at. Right underneath the status page would be a link to the documentation page. Below all of that would be a blurred image of some pirate, their name, bounty, etc. Unveiling the CSS styling, images, and such was served from the express.static() method in server.mjs. Notice, the particular format of the elements on the page is identical to the format in given by the template engine "template.who" in our case. Mouse over the div container would uncover the content.
+
+> Clicking the "Link to Documentation" (from homepage) would redirect to **localhost:3000/documentation** which informs about a few of the possible endpoints with this Express web app. 
+>> #### '/api/comments' endpoint shows all of the comments in the database
+>>> **http://localhost:3000/api/comments** 
+>> #### '/api/posts' endpoint shows all of the posts in the database
+>>> **http://localhost:3000/api/posts**
+>> #### '/api/users' endpoint shows all of the users in the database
+>>> **http://localhost:3000/api/users**
+>>
+
+#### (Attempt at RESTful by providin) Now on **localhost:3000/documentation**, selecting *"Link to Documentation"* would move you to **http://127.0.0.1:5500/endpoints/endpoints.html** (if it's running via Live Server already). There it shows a comprehensive breakdown on how to get multiple comments and posts, filtering out comments and posts by their individual index id.
+>> #### Shows the comment with id of '1' and options availables (PATCH, DELETE) all in an object of array for options
+>>> **http://localhost:3000/api/comments/1** 
+>> #### Portrays the post with id of '1' and option to PATCH (update) or DELETE (remove) in object
+>>> **http://localhost:3000/api/posts/1** 
+>> #### Displays the user by their userId of '1' with similar options to above
+>>> **http://localhost:3000/api/users/1** 
+</br>
+- - - 
+- In the case, the post, comment, or user of certain id is not available only the array of options would follow show. Indicating that despite there not being one a comment, post, or user data it could be filled and created. See Thunder-Client notes block below for more.
+- - - 
+
+> Simultaneously, could shuffle out comment and post history for a certain individual under their userId. 
+>> #### Note: An intermediate '/user endpoint was placed afer '/api/comments
+>>> **http://localhost:3000/api/comments/user/1**
+>> #### Note: An intermediate '/user endpoint was placed afer '/api/posts
+>>> **http://localhost:3000/api/posts/user/1**
+>> #### Note: An intermediate '/user endpoint was placed afer '/api/users
+>>> **http://localhost:3000/api/users/user/1**
+</br>
+
+>If the individual does NOT exist, an error-handling middleware on the backend would be invoked and return a JSON string of object {} showing the status of "404" (status code for when resource is not found) and the specific error of particular data not found.
+
+> Under the guise user accidentally inputted **http://localhost:3000/api** rather than any of the viable endpoints, a picture of Tony Tony Chopper would ensue and ... of course you guess it. A link to the documentation.
+
+> Under the rare circumstance when user mistakenly placed an invalid endpoint by a wide margin, there is a HTTP get request using regex symbol '*' to catch all other paths that are goes nowhere. Consequently, a string would pop out on the browser of the path not existing and kindly redirects **localhost:3000/documentation**.
+
+> By the way, regular expressions (regex: () and ?) are used for the below path URL:
+>> **http://localhost:3000/api/comments** 
+>>
+>> **http://localhost:3000/api/posts** 
+>>
+>> **http://localhost:3000/api/users** 
+</br>
+
+> such that the three URL's below would redirect to the same page as the three URL paths above.
+>> **http://localhost:3000/api/comment** 
+>>
+>> **http://localhost:3000/api/post** 
+>>
+>> **http://localhost:3000/api/user** 
+
+> #### Using **Thunder-Client**, all the previous HTTP GET requests could be done here. On top of PATCH to update an existing comment, post, user OR DELETE to remove a comment, post, user. Furthermore, POST method to create a new comment, post, user is available too.
+
+> #### This could be done by first selecting the wanted method (GET, POST, PATCH, DELETE). Input URL path to be accessed, if for GET no need to do anymore and just "send" it to show relevant data.
+
+> #### If for POST, PATCH, or DELETE method. Select wanted method, input URL path, go to "Body" tab and then either "JSON" if want to input it in the format following container setup and such in the database (array, objects, etc.). Other option is "Form-encode" where just fill in "name" (key) and "value" (value) fields and it will still be placed in an object. 
+
+> #### Ex. Updating a comment example by their index id
+>>1. POST
+>>2. http://localhost:3000/api/comments/1
+>>3. JSON
+>>4.    
+``` 
+{
+    "id": 3,
+    "userId": 50,
+    "title": "keke",
+    "content": "dfdddd@keke.com"
+}
+```
+>>5. Send
+>>6. GET http://localhost:3000/api/comments SEND  --- to see results
