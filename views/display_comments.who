@@ -21,6 +21,7 @@
     <aside>
 
     </aside>
+
     <h3 alt="h3 tag -- status" title="Indicates where you're at"><em>#status#</em></h3>
     <a href=#link# alt="Valid Endpoints" title="Link to Documentation">
        Link to Documentation
@@ -33,8 +34,6 @@
 
       <img src='#img#' alt="an image" title="One Piece character" />
 
-
-    
     </div>
   </body>
 </html>
