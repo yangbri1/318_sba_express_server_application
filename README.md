@@ -4,7 +4,7 @@
 - - - -
 
 ## Project Description
-### Create a web application using the fundamentals of Node.js and Express.js. Creative freedom is a go, topic is totally up for grasp. Main objectives includes ...
+### Create a RESTful web application using the fundamentals of Node.js and Express.js. Creative freedom is a go, topic is totally up for grasp. Main objectives includes ...
 
 #### 1. Creating a server application with Node.js and Express.js.
 #### 2. Create a RESTful API using Express.js.
@@ -49,6 +49,9 @@
 
 ### HTTP request / response object properties
 #### req.params, res.send(), req.path, res.status(), res.json()
+
+### Query parameters for data filtration
+#### req.query()
 
 ### File System (fs.readFile)
 #### import built-in node file system to allow handling of template engine
@@ -307,3 +310,8 @@
 ```
 >>5. Send
 >>6. GET http://localhost:3000/api/comments SEND  --- to see results
+
+
+### Query Parameters -- Data Filtering
+> http://localhost:3000/api/comments/?search=3 
+>> Above example showcases query filtering at the end of route path for 3 comments. Useful in pagination (break big data into small chunks) when a database is ginormous and you want to just filter the dataset for wanted values.

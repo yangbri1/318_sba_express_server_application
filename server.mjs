@@ -15,6 +15,7 @@ import morgan from 'morgan';
 import { custom_req_logger } from './utilities-middleware/custom_req_logger.mjs';
 import { custom_logger } from './utilities-middleware/custom_logger.mjs';
 import { custom_error } from './utilities-middleware/custom_error.mjs';
+import { time_of_access } from './utilities-middleware/time_of_access.mjs';
 
 // import other router modules from .mjs files into this web application
 import commentRoutes from './routes/commentRoutes.mjs';
@@ -27,6 +28,7 @@ const app = express();
 // declare a port for application to start listening (Port 3000 is standard)
 let PORT = 3000;
 
+/* Aside: API_KEY and related app.use() would be here but within the span of this project, API_KEY was disallowed */
 
 /* FINAL STEP IN TEMPLATE ENGINE: use Express.static middleware -- allow styling in template rendering */
 // serve static files (images, CSS files, JS files) inside an Express app
@@ -146,6 +148,12 @@ app.get('/api', (req, res) => {
     };
     /* IMPORTANT: call res.render() in EACH of app's routes so view could be rendered */
     res.render('template', options);
+});
+
+app.get('/comments/search', (req, res) => {
+    // const {limit} = req.query;
+    const limit = req.query.limit;
+    res.send(`Asking for ${limit} comments`);
 });
 
 // GET request to any other page (catch all) ...

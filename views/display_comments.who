@@ -1,17 +1,31 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>OG Template</title>
+    <title>Show All Comments</title>
     <meta charset="UTF-8" />
     <link rel="stylesheet" href="./style.css" />
   </head>
 
   <body>
+    <header>
+        <a class="comments" href="#"> Comment History </a>
+        <a href='/api/
+    </header>
+
+    <article>
+        <section>
+            <h2> Accessed Granted </h2>
+            <time>#time#</time>
+        </section>
+    </article>
+    <aside>
+
+    </aside>
     <h3 alt="h3 tag -- status" title="Indicates where you're at"><em>#status#</em></h3>
     <a href=#link# alt="Valid Endpoints" title="Link to Documentation">
        Link to Documentation
       </a>
-
+      
     <div id="app_container">
       <h1 alt="h1 tag -- name" title="Name of character">#name#</h1>
       <h2 alt="h2 tag -- alias" title="Some alias the character goes by">#alias#</h2>
@@ -20,8 +34,7 @@
       <img src='#img#' alt="an image" title="One Piece character" />
 
 
-      
-
+    
     </div>
   </body>
 </html>
