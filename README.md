@@ -100,6 +100,9 @@
 ### Emojis
 #### https://emojipedia.org/waving-hand
 
+### Node.js Express Query Parameters
+#### https://apidog.com/blog/nodejs-express-get-query-params/#advanced-query-parameter-handling-with-middleware
+
 ### Express middlewares resources
 #### https://expressjs.com/en/resources/middleware.html
 #### https://retrodevs.medium.com/express-js-logger-middleware-a-quick-and-easy-guide-6b79a14ea164
