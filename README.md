@@ -119,8 +119,9 @@
 ### CSS animations
 #### https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_animations/Using_CSS_animations
 
-### Markdown language guide
+### Markdown formatting & display image guides
 #### https://www.markdownguide.org/basic-syntax/
+#### https://stackoverflow.com/questions/41604263/how-do-i-display-local-image-in-markdown
 
 ### Lecture Notes
 #### https://www.canva.com/design/DAFris1zDAc/view
@@ -218,8 +219,8 @@
 >> #### '/api/users' endpoint shows all of the users in the database
 >>> **http://localhost:3000/api/users**
 >>
-
-#### (Attempt at RESTful by providin) Now on **localhost:3000/documentation**, selecting *"Link to Documentation"* would move you to **http://127.0.0.1:5500/endpoints/endpoints.html** (if it's running via Live Server already). There it shows a comprehensive breakdown on how to get multiple comments and posts, filtering out comments and posts by their individual index id.
+![doc snapshot](./images/api_documentation.jpg)
+#### (Attempt at RESTful by providing documentation) Now on **localhost:3000/documentation**, selecting *"Link to Documentation"* would move you to **http://127.0.0.1:5500/endpoints/endpoints.html** (if it's running via Live Server already). There it shows a comprehensive breakdown on how to get multiple comments and posts, filtering out comments and posts by their individual index id.
 >> #### Shows the comment with id of '1' and options availables (PATCH, DELETE) all in an object of array for options
 >>> **http://localhost:3000/api/comments/1** 
 >> #### Portrays the post with id of '1' and option to PATCH (update) or DELETE (remove) in object
@@ -229,6 +230,22 @@
 </br>
 - - - 
 - In the case, the post, comment, or user of certain id is not available only the array of options would follow show. Indicating that despite there not being one a comment, post, or user data it could be filled and created. See Thunder-Client notes block below for more.
+```
+{
+    "options": [
+        {
+            "href": "/fgfg",
+            "rel": "",
+            "method": "PATCH"
+        },
+        {
+            "href": "/fgfg",
+            "rel": "",
+            "method": "DELETE"
+        }
+    ]
+}
+```
 - - - 
 
 > Simultaneously, could shuffle out comment and post history for a certain individual under their userId. 
@@ -240,7 +257,13 @@
 >>> **http://localhost:3000/api/users/user/1**
 </br>
 
->If the individual does NOT exist, an error-handling middleware on the backend would be invoked and return a JSON string of object {} showing the status of "404" (status code for when resource is not found) and the specific error of particular data not found.
+>If the individual does NOT exist, an error-handling middleware on the backend would be invoked and return a JSON string of object {} showing the status of "404" (status code for when resource is not found) and the specific error of particular data not found. <em> (<u>Aside</u>: Managed to dynamically change the custom error message depending on HTTP GET requested path but it made it look aesthetically unpleasing & broke separation of concerns so reverted back.) </em>
+```
+{
+    "status": "404",
+    "error": "Data not found"
+}
+```
 
 > Under the guise user accidentally inputted **http://localhost:3000/api** rather than any of the viable endpoints, a picture of Tony Tony Chopper would ensue and ... of course you guess it. A link to the documentation.
 
@@ -261,6 +284,8 @@
 >>
 >> **http://localhost:3000/api/user** 
 
+
+### Thunder-Client (CRUD works here -- testing backend w/o needing front-end)
 > #### Using **Thunder-Client**, all the previous HTTP GET requests could be done here. On top of PATCH to update an existing comment, post, user OR DELETE to remove a comment, post, user. Furthermore, POST method to create a new comment, post, user is available too.
 
 > #### This could be done by first selecting the wanted method (GET, POST, PATCH, DELETE). Input URL path to be accessed, if for GET no need to do anymore and just "send" it to show relevant data.
