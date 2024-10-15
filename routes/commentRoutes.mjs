@@ -63,6 +63,33 @@ router.post('/', (req, res, next) => {
     }
 });
 
+/* GET route with query parameter at end '?limit=1' */
+// @route:  GET api/comments/search
+// @desc:   Return number of comments given by query parameter
+// @access: Public
+router.get('/search', (req, res, next) => {
+    
+    // declare a local empty array for comments to be appended to
+    const comments_array = [];
+
+    // declare const variable limit to cache req.query.limit retrieved from HTTP GET request
+    /* Aside: req.query are automatically parsed by Node Express when an HTTP GET request is made*/
+    const limit = req.query.limit;
+
+    // initialize an iterator 
+    let itr = 0;
+    // iterate through the given "comments" data set
+    while(itr < limit){
+        // append comment to an array
+        comments_array.push(comments[itr]);
+        // increment by 1 to keep cycle moving
+        itr++;
+    }
+    // output the array of comments as JSON string to browser
+    res.json(comments_array);
+
+});
+
 /* GET route takes in route parameter :id (inserted dynamic data) from path URL, caches and manipulate it */
 // @route:  GET api/comments/:id
 // @desc:   Retrieve a comment

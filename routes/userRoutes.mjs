@@ -66,6 +66,35 @@ router.post('/', (req, res, next) => {
     }
 });
 
+
+/* GET route with query parmater at end '?limit=1' */
+// @route:  GET api/users/search
+// @desc:   Return number of users given by query parameter
+// @access: Public
+router.get('/search', (req, res, next) => {
+    
+    // declare a local empty array for users to be appended to
+    const users_array = [];
+
+    // declare const variable limit to cache req.query.limit retrieved from HTTP GET request
+    /* Aside: req.query are automatically parsed by Node Express when an HTTP GET request is made*/
+    const limit = req.query.limit;
+
+    // initialize an iterator 
+    let itr = 0;
+    // iterate through the given "users" data set
+    while(itr < limit){
+        // append users to an array
+        users_array.push(users[itr]);
+        // increment by 1 to keep cycle moving
+        itr++;
+    }
+    // output the array of users as JSON string to browser
+    res.json(users_array);
+    
+});
+
+
 /* GET route takes in route parameter :id (inserted dynamic data) from path URL, caches and manipulate it */
 // @route:  GET api/users/:id
 // @desc:   Retrieve a user

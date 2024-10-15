@@ -64,6 +64,33 @@ router.post('/', (req, res, next) => {
     }
 });
 
+/* GET route with query parameter at end '?limit=1' */
+// @route:  GET api/posts/search
+// @desc:   Return number of posts given by query parameter
+// @access: Public
+router.get('/search', (req, res, next) => {
+    
+    // declare a local empty array for posts to be appended to
+    const posts_array = [];
+
+    // declare const variable limit to cache req.query.limit retrieved from HTTP GET request
+    /* Aside: req.query are automatically parsed by Node Express when an HTTP GET request is made*/
+    const limit = req.query.limit;
+
+    // initialize an iterator 
+    let itr = 0;
+    // iterate through the given "posts" data set
+    while(itr < limit){
+        // append posts to an array
+        posts_array.push(posts[itr]);
+        // increment by 1 to keep cycle moving
+        itr++;
+    }
+    // output the array of posts as JSON string to browser
+    res.json(posts_array);
+    
+});
+
 /* GET route takes in route parameter :id (inserted dynamic data) from path URL, caches and manipulate it */
 // @route:  GET api/posts/:id
 // @desc:   Retrieve a post
@@ -192,6 +219,7 @@ router.get('/user/:userId', (req, res, next) => {
         next("No POSTS from this user");
     }
 });
+
 
 // export out the router into server.mjs for further use
 export default router;

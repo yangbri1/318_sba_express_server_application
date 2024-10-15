@@ -15,7 +15,8 @@ import morgan from 'morgan';
 import { custom_req_logger } from './utilities-middleware/custom_req_logger.mjs';
 import { custom_logger } from './utilities-middleware/custom_logger.mjs';
 import { custom_error } from './utilities-middleware/custom_error.mjs';
-import { time_of_access } from './utilities-middleware/time_of_access.mjs';
+// import { query_params } from './utilities-middleware/query_params.mjs';     // query_params middleware not used here -- just build one right in router modules
+// import { time_of_access } from './utilities-middleware/time_of_access.mjs'; // for form
 
 // import other router modules from .mjs files into this web application
 import commentRoutes from './routes/commentRoutes.mjs';
@@ -79,6 +80,9 @@ app.use(morgan('tiny'));
 
 // custom middleware logging info & when HTTP request was made
 app.use(custom_logger);
+
+// using query_params middleware to check whether or not ?limit= query parameter was given
+// app.use(query_params);
 
 /* routes */
 // load router modules into the app
@@ -150,11 +154,12 @@ app.get('/api', (req, res) => {
     res.render('template', options);
 });
 
-app.get('/comments/search', (req, res) => {
-    // const {limit} = req.query;
-    const limit = req.query.limit;
-    res.send(`Asking for ${limit} comments`);
-});
+/* outputs to browser the number of inquired comments */
+// app.get('/comments/search', query_params, (req, res) => {
+//     // const {limit} = req.query;
+//     // const limit = req.query.limit;
+//     res.send(`Asking for ${limit} comments`);
+// });
 
 // GET request to any other page (catch all) ...
 app.get('*', (req, res) => {

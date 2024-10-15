@@ -313,5 +313,16 @@
 
 
 ### Query Parameters -- Data Filtering
-> http://localhost:3000/api/comments/?search=3 
->> Above example showcases query filtering at the end of route path for 3 comments. Useful in pagination (break big data into small chunks) when a database is ginormous and you want to just filter the dataset for wanted values.
+> Useful in pagination (break big data into small chunks) when a database is ginormous and you want to just filter the dataset for wanted values.
+> Note: Query parameters conventional syntax is starting with a question mark '?' and using ampersands '&' to concatenate multiples. As follows:
+> - #### /search?limit=2
+>> - returns a JSON string array of 2 comments to browser
+>> http://localhost:3000/api/comments/search?limit=2
+</br> 
+
+>> - returns a JSON string array of 3 posts to browser
+>> http://localhost:3000/api/posts/search?limit=3
+</br>
+
+>> - returns a JSON string array of 1 user to browser
+>> http://localhost:3000/api/users/search?limit=1
